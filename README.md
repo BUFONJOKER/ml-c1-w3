@@ -1,75 +1,110 @@
 # 📘 Machine Learning Specialization — Course 1 · Week 3
 
-Brief, self-contained repository for the Week 3 assignment and optional labs.
+[![UV](https://img.shields.io/badge/uv-v0.4-blue)](https://github.com/astral-sh/uv) [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/) [![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange.svg)](https://jupyter.org/)
 
-## Overview
-This repo contains notebooks, data pointers, and instructions to complete Week 3 graded tasks and optional lab exercises. Organized for quick setup and reproducible experiments.
+Brief, self-contained repository for Week 3 assignment and optional labs. Organized for quick setup and reproducible experiments using UV.
 
-## Contents
-- Week 3 assignment notebook(s) (graded)  
-- Optional lab notebook(s) (extra practice)  
-- Dependency / environment hints
+Prerequisites: Python 3.8+, UV package manager, Jupyter Notebook / JupyterLab.
 
-## Prerequisites
-- Python 3.8+
-- Jupyter Notebook or JupyterLab
-- pip or conda (or uv if the repo uses that manager)
-
-## Quick setup (choose one)
-
-1. Conda (if environment.yml exists)
+Install UV
+- macOS / Linux
 ```bash
-conda env create -f environment.yml
-conda activate <env-name>
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+- Windows (PowerShell)
+```powershell
+powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+- pip
+```bash
+pip install uv
 ```
 
-2. Virtual environment + pip
+Clone and prepare project
 ```bash
-python -m venv .venv
-# Activate:
-# Linux / macOS:
-source .venv/bin/activate
-# Windows (cmd):
-.venv\Scripts\activate
-# Windows (PowerShell):
-.venv\Scripts\Activate.ps1
+git clone <repository-url>
+cd ml-specialization-c1-w3
+uv sync
+uv run jupyter notebook
+```
+Open `ml-specialization-c1-w3.ipynb` to start.
 
-pip install <package1> <package2> ...
+Development commands
+- install all dependencies
+```bash
+uv sync
+```
+- install production only
+```bash
+uv sync --no-dev
+```
+- add packages
+```bash
+uv add numpy pandas matplotlib
+```
+- add dev packages
+```bash
+uv add --dev pytest black jupyter
+```
+- run scripts
+```bash
+uv run python script.py
+uv run python -m module_name
+```
+- launch Jupyter
+```bash
+uv run jupyter notebook
+uv run jupyter lab
+```
+- update and inspect dependencies
+```bash
+uv sync --upgrade
+uv tree
 ```
 
-3. uv project manager (if used)
+Key dependencies: numpy, pandas, matplotlib, scikit-learn, scipy, jupyter, ipywidgets, ipympl, notebook, black, pytest, jupyterlab.
+
+Usage
+- restart kernel and run all cells after installing dependencies.
+- execute notebook cells in order and save frequently.
+- enable interactive widgets/plots:
 ```bash
-uv project init
-uv project install
-uv project run jupyter
+uv add ipywidgets ipympl
+uv run jupyter nbextension enable --py widgetsnbextension
+uv run jupyter nbextension enable --py --sys-prefix ipympl
 ```
 
-If no environment file is present, inspect notebooks for imports and install required packages manually.
-
-## Notebook note
-Notebooks primarily contain code cells. Follow in-cell comments and run cells in order; after installing dependencies, restart the kernel and use "Run All".
-
-## Interactive plot recommendations
-For interactive matplotlib widgets and ipywidgets:
+Troubleshooting
+- kernel not connecting
 ```bash
-pip install ipywidgets ipympl matplotlib notebook
-# or with conda:
-conda install -c conda-forge ipywidgets ipympl matplotlib notebook
+uv run python -m ipykernel install --user --name=uv-ml-env
 ```
-Enable notebook extensions (if needed):
-```bash
-jupyter nbextension enable --py widgetsnbextension
-jupyter nbextension enable --py --sys-prefix ipympl
-```
+then select `uv-ml-env` in Jupyter.
 
-## Usage example
-Launch a notebook server and open the Week 3 notebook:
+- missing packages
 ```bash
-# Activate your environment, then:
-jupyter notebook          # or jupyter lab
-# Open the appropriate Week 3 .ipynb file in the browser
+uv pip list
+uv add <package-name>
+uv sync
+```
+- datasets not found: confirm `data/` exists and you are in project root.
+
+Performance tips
+```bash
+uv sync --frozen
+uv sync --compile-bytecode
 ```
 
-Notes
-- Check notebooks for any dataset download instructions or environment-specific steps.
-- If you want, a short "How to run the Week 3 assignment" usage walkthrough can be added.
+Assignment notes: Week 3 topics: logistic regression, regularization, model evaluation, multi-class classification. Submission: complete all required cells, ensure tests pass, save notebook with outputs, follow course submission rules.
+
+Contributing
+```bash
+# fork → branch → change → test → pull request
+uv run pytest
+```
+
+Resources: UV https://github.com/astral-sh/uv, Jupyter https://jupyter.org, Scikit-learn guide https://scikit-learn.org/stable/user_guide.html, Matplotlib tutorials https://matplotlib.org/stable/tutorials/index.html.
+
+License: part of the Machine Learning Specialization — follow course academic integrity policies.
+
+Happy learning — commit regularly and follow good data-science practices.
